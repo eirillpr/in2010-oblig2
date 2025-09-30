@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class merge {
     int[] numbers;
     int comp = 0;
@@ -6,29 +8,52 @@ public class merge {
 
     merge(int[] array) {
         this.numbers = array;
-        sort(numbers);
     }
 
-    public void mergehelp(int[] a, int[] b, int[] c) {
-
+    public int[] mergehelp(int[] a1, int[] a2, int[] a) {
+        int i = 0;
+        int j = 0;
+        while (i < a1.length && j < a2.length) {
+            comp++;
+            if (a1[i] <= a2[j]) {
+                a[i + j] = a1[i];
+                i++;
+                swaps++;
+            }
+            else {
+                a[i + j] = a2[j];
+                j++;
+                swaps++;
+            }
+        }
+        while (i < a1.length) {
+            a[i + j] = a1[i];
+            i++;
+            swaps++;
+        }
+        while (j < a2.length) {
+            a[i + j] = a2[j];
+            j++;
+            swaps++;
+        }
+        return a;
     }
 
-    public void sort(int[] array) { //sorterer med insertionsort
+    public int[] mergesort(int[] a) { //sorterer med mergesort
+        if (a.length <= 1) {
+            return a;
+        }
+        int i = a.length/2;
+        int[] a1 = mergesort(Arrays.copyOfRange(a, 0, i));
+        int[] a2 = mergesort(Arrays.copyOfRange(a, i, a.length));
+        return mergehelp(a1, a2, a);
+        
+    }
+
+    public void sort(int[] a) {
         long t = System.nanoTime();
-        for () {}
+        this.numbers = mergesort(numbers);
         this.time = (System.nanoTime()-t)/1000;
-    }
-
-    boolean less(int a, int b) {
-        comp++;
-        return numbers[a] > numbers[b];
-    }
-
-    void swap(int a, int b) {
-        swaps++;
-        int x = numbers[a];
-        numbers[a] = numbers[b];
-        numbers[b] = x;
     }
 
     public int[] hentSortert() {return numbers;}

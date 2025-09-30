@@ -6,7 +6,6 @@ class Insertion {
 
     Insertion(int[] array) {
         this.numbers = array;
-        sort(numbers);
     }
 
     public void sort(int[] array) { //sorterer med insertionsort
@@ -36,7 +35,7 @@ class Insertion {
     public int[] hentSortert() {return numbers;}
     public int swaps() {return swaps;}
     public int comp() {return comp;}
-    public long tid() {return time;}
+    public long time() {return time;}
     public void nullstill() {comp = 0; swaps = 0; return;}
 
 
