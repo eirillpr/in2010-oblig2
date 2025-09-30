@@ -76,6 +76,6 @@ public class quick {
     public int[] hentSortert() {return A;}
     public int swaps() {return swaps;}
     public int comp() {return comp;}
-    public long tid() {return måletid;}
+    public long time() {return måletid;}
     public void nullstill() {comp = 0; swaps = 0; return;}
 }
