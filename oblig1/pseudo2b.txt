@@ -1,0 +1,24 @@
+Input: prioritetskø m heltall i stigende prioritet
+Output: elementer i innsettingsrekkefølge som gir balansert søketre
+
+	Proc balance(min_priokø) // stigende rekkefølge
+		n <-- min_priokø.size()
+		If n = 0 then 
+			Return
+		
+		mid <-- n//2
+		
+		L <-- empty queue // venstre halvdel
+		For s € range(0,mid) do
+			L.offer(min_priokø.pop())
+		
+		Median <-- min_priokø.pop()
+		Print(median)
+		
+		H <-- empty queue // høyre halvdel
+		while min_priokø not empty do
+			H.offer(min_priokø.pop())
+		
+		// rekursjon
+		Balance(L)
+        Balance(H)

@@ -1,0 +1,25 @@
+	Input: sortert array m heltall 
+	Output: elementer i rekkefølge som gir balansert søketre
+	
+	Proc balance(sorted_array)
+		n <-- sorted_array.size()
+		If n = 0 then
+			Return
+		stack <-- empty stack
+		
+		// én tuppel legges inn på stacken (representerer intervallet):
+		stack.push(0,n-1) 
+		
+		While stack is not empty do
+			(L, R) <-- stack.pop() // tar ut sist pushede intervall
+			If L > R then // tomt eller ugyldig intervall
+				Continue
+			
+			// finner øvre medianindeks for (L...R)
+			Mid <-- (L+R+1)/2
+			
+			// printer ut tallene i innsettingsrekkefølge
+			Print(sorted_array[mid]) 
+			
+			stack.push(L, mid-1)
+            stack.push(mid+1, R)
