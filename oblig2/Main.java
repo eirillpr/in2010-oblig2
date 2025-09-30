@@ -14,6 +14,7 @@ class Main {
         Path quickOut = Path.of(inputfil + "_quick.out");
         Path heapOut  = Path.of(inputfil + "_heap.out");
         Path insertionOut  = Path.of(inputfil + "_insertion.out");
+        Path mergeOut = Path.of(inputfil + "_merge.out");
         Path results  = Path.of(inputfil + "_results.csv");
 
         try {
@@ -29,19 +30,14 @@ class Main {
             
             Files.writeString(
                 results,
-                "n, quick_cmp, quick_swaps, quick_time, heap_cmp, heap_swaps, heap_time, insertion_cmp, insertion_swaps, insertion_time\n",
+                "n, quick_cmp, quick_swaps, quick_time, heap_cmp, heap_swaps, heap_time, insertion_cmp, insertion_swaps, insertion_time, merge_cmp, merge_swaps, merge_time\n",
                 StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING
             );
-
-            // for finere display i .csv-filen:
-            /* String[] overskrift = {"n", "quick_cmp", "quick_swaps", "quick_time", "heap_cmp", "heap_swaps", "heap_time", "insertion_cmp", "insertion_swaps", "insertion_time"};
-            for (String tegn : overskrift) {
-
-            }*/
             for (int size = 0; size <= n; size++) {
                 int[] A_q = java.util.Arrays.copyOf(A, size);
                 int[] A_h = A_q.clone();
                 int[] A_i = A_q.clone();
+                int[] A_m = A_q.clone();
 
                 // quick
                 quick q = new quick(A_q, 0, size - 1);
@@ -55,6 +51,10 @@ class Main {
                 insertion ins = new insertion(A_i);
                 ins.sort();
 
+                // merge
+                merge m = new merge(A_m);
+                m.sort();
+
                 // formattering
                 final int W_N   = "n".length();
                 final int W_QC  = "quick_cmp".length();
@@ -66,6 +66,9 @@ class Main {
                 final int W_IC  = "insertion_cmp".length();
                 final int W_IS  = "insertion_swaps".length();
                 final int W_IT  = "insertion_time".length();
+                final int W_MC  = "merge_cmp".length();
+                final int W_MS  = "merge_swaps".length(); 
+                final int W_MT  = "merge_time".length();
 
                 final String FMT =
                     "%" + W_N  + "d," +
@@ -77,8 +80,10 @@ class Main {
                     "%" + W_HT + "d," +
                     "%" + W_IC + "d," +
                     "%" + W_IS + "d," +
-                    "%" + W_IT + "d%n";
-
+                    "%" + W_IT + "d" +
+                    "%" + W_MC + "d," +
+                    "%" + W_MS + "d," +
+                    "%" + W_MT + "d%n";
 
                 Files.writeString(
                     results,
@@ -86,7 +91,8 @@ class Main {
                         size,
                         q.comp(), q.swaps(), q.time(),
                         h.comp(), h.swaps(), h.time(),
-                        ins.comp(), ins.swaps(), ins.time()
+                        ins.comp(), ins.swaps(), ins.time(),
+                        m.comp(), m.swaps(), m.time()
                     ),
                     StandardOpenOption.CREATE, StandardOpenOption.APPEND
                 );
@@ -97,6 +103,7 @@ class Main {
                     writeLinesOnlyNumbers(quickOut, A_q); 
                     writeLinesOnlyNumbers(heapOut,  A_h);
                     writeLinesOnlyNumbers(insertionOut,  A_i);
+                    writeLinesOnlyNumbers(mergeOut,  A_m);
                 }
             }
         } catch (NoSuchFileException e) {
