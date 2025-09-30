@@ -47,11 +47,11 @@ class Main {
                 heap h = new heap(A_h);
                 h.sort();
 
-                // insertion
+                //insertion
                 insertion ins = new insertion(A_i);
                 ins.sort();
 
-                // merge
+                //merge
                 merge m = new merge(A_m);
                 m.sort();
 
